@@ -4,21 +4,8 @@
  * Sanscript is a Sanskrit transliteration library. Currently, it supports
  * other Indian languages only incidentally.
  *
- * Released under the MIT and GPL Licenses.
- *
- CHANGELOG - Shree
- 2015 use \u2060 word joiner for vedic accents for bangla, malayalam, oriya and tamil
- 2015/3/15 for Kannada Anusvar
- 2016/7/23 fix for Bangla for  ळ to ল় as per aksharamukha
- 2016 Oct 17 - add Grantha (Indolipi - in Bangla range) using e-Grantamil font, ^e, ^o, ^Z for Tamil
- 2017 Jan04 - fix jha transliteration for Tamil
- 2017 Jan 06 - fix anuswar sounds for Tamil via substitution - ref Sivakumar email
- 2017 Feb 14 - make IAST standard, create a diff one for sa-Latn
- 2017 Jul-Aug - add GranTamil for EaswaranJi, mixes Tamil and Bengali/Grantha characters
- 2017 Aug 11 - fix for tamil - saMGYitam - ஸஞ்ஜ்ஞிதம்
- 2017 Aug 13 - fix for grantamil - use Tamil ja not grantha
  */
-
+ 
 (function(Sanscript) {
     "use strict";
 
@@ -92,7 +79,7 @@
             other_marks: 'ம் ঃ ঁ'.split(' '),
             virama: ['்'],
             consonants: 'க খ গ ঘ ங ச ছ ஜ ঝ ஞ ட ঠ ড ঢ ண த থ দ ধ ந ப ফ ব ভ ம ய ர ல வ ஶ ஷ ஸ ஹ ৰ க்ஷ ஜ்ஞ'.split(' '),
-            symbols: '0 1 2 3 4 5 6 7 8 9 ௐ ऽ । ॥'.split(' '),
+            symbols: '0 1 2 3 4 5 6 7 8 9 ௐ ঽ । ॥'.split(' '),
             other: '        ற ழ'.split(' '),
             candra: [''],
             // Vedic accent. Udatta and anudatta, double udatta and ardhachandra viraama.
@@ -239,15 +226,15 @@
          * -----
          * Missing R/RR/lR/lRR vowel marks and voice/aspiration distinctions.
          * The most incomplete of the Sanskrit schemes here.
+         * using Grantha (Bengali) avagraha - eGrantamil font
          */
         tamil: {
             vowels: 'அ ஆ இ ஈ உ ஊ ருʼ ரூʼ லுʼ லூʼ எ ஏ ஐ ஒ ஓ ஔ'.split(' '),
             vowel_marks: 'ா ி ீ ு ூ ்ருʼ ்ரூʼ ்லுʼ ்லூʼ ெ ே ை ொ ோ ௌ'.split(' '),
             other_marks: 'ம் : '.split(' '),
             virama: ['்'],
-            consonants: 'க க² க³ க⁴ ங ச ச² ஜ ஜ² ஞ ட ட² ட³ ட⁴ ண த த² த³ த⁴ ன ப ப² ப³ ப⁴ ம ய ர ல வ ஶ ஷ ஸ ஹ ள க்ஷ ஜ்ஞ'.split(' '),
-/*            symbols: '௦ ௧ ௨ ௩ ௪ ௫ ௬ ௭ ௮ ௯ ஓம்ʼ ऽ । ॥'.split(' '), */
-            symbols: '0 1 2 3 4 5 6 7 8 9 ௐ ऽ । ॥'.split(' '),
+            consonants: 'க க² க³ க⁴ ங ச ச² ஜ ஜ² ஞ ட ட² ட³ ட⁴ ண த த² த³ த⁴ ந ப ப² ப³ ப⁴ ம ய ர ல வ ஶ ஷ ஸ ஹ ள க்ஷ ஜ்ஞ'.split(' '),
+            symbols: '0 1 2 3 4 5 6 7 8 9 ௐ ঽ । ॥'.split(' '),
             other: '        ற ழ'.split(' '),
             candra: [''],
             accent: ['\u2060', '\u2060', "\u2060", "\u2060"],
@@ -850,16 +837,34 @@
             .replace(/(.)(²|³|⁴|ʼ)(॒|॑|᳚)/g,"$1$3$2")
             .replace(/(.)(:)(॒|॑)/g,"$1$3$2") 
         }
+// ன conversion not relevant any more, just using ந for na
         if (to == 'tamil' && options.enableTamilCharPositionFixes == true) {
             alldata = alldata
-            .replace(/([\s\p{P}])ன/g, "$1ந")
-            .replace(/ன்த/g,"ந்த")
-      //    .replace(/ன்ன/g,"ந்ந")
-            .replace(/னாம/g,"நாம")
-            .replace(/னாராயண/g,"நாராயண")
+//          .replace(/([\s\p{P}])ன/g, "$1ந")
+            .replace(/தும்ப³ர-தால/g,"தும்ப³ர-தாள")
+            .replace(/ராக³தால/g,"ராக³தாள")
+            .replace(/மங்க³ல/g,"மங்க³ள")
+            .replace(/மம்க³ல/g,"மங்க³ள")
+            .replace(/த⁴வல/g,"த⁴வள")
+            .replace(/மஞ்ஜுல/g,"மஞ்ஜுள")
+            .replace(/கீர்தநாவல/g,"கீர்தநாவள")
+            .replace(/முக்தாவல/g,"முக்தாவள")
+            .replace(/நாமாவல/g,"நாமாவள")
+            .replace(/புஷ்பாவல/g,"புஷ்பாவள")
+            .replace(/ரத்நாவல/g,"ரத்நாவள")
+            .replace(/ஸ்தோத்ராவல/g,"ஸ்தோத்ராவள")
+	    .replace(/சரணயுக³லாய/g,"சரணயுக³ளாய")
+ 	    .replace(/ப⁴க்திபரிமலாய/g,"ப⁴க்திபரிமளாய")
+	    .replace(/பத³யுக³லாய/g,"பத³யுக³ளளாய")
+	    .replace(/துலஸீத³ல/g,"துலஸீத³ள")
+            .replace(/ப⁴க்திபரிமலித/g,"ப⁴க்திபரிமளித")
+            .replace(/மஞ்ஜுலதம/g,"மஞ்ஜுளதம")
+            .replace(/சரணயுக³ல/g,"சரணயுக³ள")
+            .replace(/சரணயுக³லத்³ருʼட⁴/g,"சரணயுக³ளத்³ருʼட⁴")
         }
        if (to == 'tamil') {
             alldata = alldata
+            .replace(/மங்க³ள்ய/g,"மங்க³ல்ய")
             .replace(/ம்க/g,"ங்க")
             .replace(/ம்ச/g,"ஞ்ச")
             .replace(/ம்ஜ/g,"ஞ்ஜ")
@@ -881,6 +886,11 @@
             .replace(/ம்ஜ/g,"ஞ்ஜ")
             .replace(/ம்த/g,"ந்த")
             .replace(/ம்ட/g,"ண்ட")
+            .replace(/ராগதால/g,"ராগதாள")
+            .replace(/நாமாவல/g,"நாமாவள")
+            .replace(/புஷ்பாவல/g,"புஷ்பாவள")
+            .replace(/மங்গல/g,"மங்গள")
+            .replace(/மம்গல/g,"மங்গள")
         }
         return alldata;
     };
