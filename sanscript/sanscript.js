@@ -237,7 +237,8 @@
             symbols: '0 1 2 3 4 5 6 7 8 9 ௐ ঽ । ॥'.split(' '),
             other: '        ற ழ'.split(' '),
             candra: [''],
-            accent: ['\u2060', '\u2060', "\u2060", "\u2060"],
+            accent: ['\u0951', '\u0952', '\u1cda', "\ua8f3"],
+/*          accent: ['\u2060', '\u2060', "\u2060", "\u2060"], */
             combo_accent: ["", "", "", ""]
         },
 
@@ -840,7 +841,9 @@
 // ன conversion not relevant any more, just using ந for na
         if (to == 'tamil' && options.enableTamilCharPositionFixes == true) {
             alldata = alldata
-//          .replace(/([\s\p{P}])ன/g, "$1ந")
+//            .replace(/([\s\p{P}])ன/g, "$1ந")
+            .replace(/யுக³ல/g,"யுக³ள")
+            .replace(/துலஸீ/g,"துளஸீ")
             .replace(/தும்ப³ர-தால/g,"தும்ப³ர-தாள")
             .replace(/ராக³தால/g,"ராக³தாள")
             .replace(/மங்க³ல/g,"மங்க³ள")
@@ -853,14 +856,16 @@
             .replace(/புஷ்பாவல/g,"புஷ்பாவள")
             .replace(/ரத்நாவல/g,"ரத்நாவள")
             .replace(/ஸ்தோத்ராவல/g,"ஸ்தோத்ராவள")
-	    .replace(/சரணயுக³லாய/g,"சரணயுக³ளாய")
- 	    .replace(/ப⁴க்திபரிமலாய/g,"ப⁴க்திபரிமளாய")
-	    .replace(/பத³யுக³லாய/g,"பத³யுக³ளளாய")
-	    .replace(/துலஸீத³ல/g,"துலஸீத³ள")
+            .replace(/சரணயுக³லாய/g,"சரணயுக³ளாய")
+            .replace(/ப⁴க்திபரிமலாய/g,"ப⁴க்திபரிமளாய")
+            .replace(/பத³யுக³லாய/g,"பத³யுக³ளளாய")
+            .replace(/துலஸீத³ல/g,"துலஸீத³ள")
             .replace(/ப⁴க்திபரிமலித/g,"ப⁴க்திபரிமளித")
             .replace(/மஞ்ஜுலதம/g,"மஞ்ஜுளதம")
             .replace(/சரணயுக³ல/g,"சரணயுக³ள")
             .replace(/சரணயுக³லத்³ருʼட⁴/g,"சரணயுக³ளத்³ருʼட⁴")
+            .replace(/க்ஷராவலி/g,"க்ஷராவளி")
+            .replace(/கிரணாவலி/g,"கிரணாவளி")
         }
        if (to == 'tamil') {
             alldata = alldata
